@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MINOR GHOST MOD VIP</title>
+    <style>
+        /* --- CSS STYLES --- */
+        
+        :root {
+            --bg-color: #000000;
+            --card-bg: #0d0d0d;
+            --cyan-neon: #00ffff;
+            --cyan-glow: rgba(0, 255, 255, 0.4);
+            --text-main: #ffffff;
+            --text-muted: #777777;
+            --border-color: #1e1e1e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            outline: none;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .phone-screen {
+            width: 100%;
+            max-width: 380px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* --- 1. MÀN HÌNH ĐĂNG NHẬP (LOGIN) --- */
+        #login-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 80vh;
+            gap: 20px;
+        }
+
+        .login-box {
+            background: var(--card-bg);
+            border: 2px solid var(--cyan-neon);
+            padding: 30px 20px;
+            border-radius: 20px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 20px var(--cyan-glow);
+        }
+
+        .logo-circle {
+            width: 70px; height: 70px;
+            border-radius: 50%;
+            border: 2px solid var(--cyan-neon);
+            margin: 0 auto 15px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 30px; color: var(--cyan-neon);
+            box-shadow: 0 0 10px var(--cyan-glow);
+        }
+
+        .login-title { font-size: 1.3em; font-weight: bold; margin-bottom: 5px; color: var(--cyan-neon); }
+        .login-sub { font-size: 0.7em; color: var(--text-muted); margin-bottom: 25px; letter-spacing: 2px;}
+        
+        .input-group { width: 100%; margin-bottom: 20px; }
+        .input-group input {
+            width: 100%; padding: 12px;
+            background: #1a1a1a;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: white; text-align: center;
+            font-size: 1em;
+        }
+
+        .btn-verify {
+            width: 100%; padding: 12px;
+            background: var(--cyan-neon);
+            border: none; border-radius: 10px;
+            color: black; font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px var(--cyan-glow);
+            transition: 0.3s;
+        }
+        .btn-verify:active { transform: scale(0.95); }
+
+        /* --- 2. MÀN HÌNH MENU CHÍNH (MẶC ĐỊNH ẨN) --- */
+        #main-menu {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .main-header {
+            text-align: center;
+            padding: 10px 0;
+            color: var(--cyan-neon);
+            font-weight: 800;
+            letter-spacing: 2px;
+            font-size: 1.2em;
+            text-shadow: 0 0 10px var(--cyan-glow);
+            margin-bottom: 10px;
+        }
+
+        /* SYSTEM MONITOR AREA */
+        .sys-monitor-card {
+            background-color: var(--card-bg);
+            border: 1.5px solid var(--cyan-neon);
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0 0 15px var(--cyan-glow);
+        }
+
+        .sys-header {
+            display: flex;
+            justify-content: space-between;
+            color: var(--cyan-neon);
+            font-weight: bold;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+
+        .sys-info-p { font-size: 0.8em; margin-bottom: 4px; font-family: monospace; }
+        .sys-label { color: var(--text-muted); }
+        .sys-value { color: var(--cyan-neon); margin-left: 5px; }
+        .sys-status { color: #adff2f; margin-left: 5px; } /* Active color */
+
+        /* MOD OPTION ROWS */
+        .option-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .option-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .option-icon { font-size: 1.3em; }
+
+        .option-text-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .option-title { font-size: 0.9em; font-weight: 600; }
+        .option-desc { font-size: 0.7em; color: var(--text-muted); }
+
+        /* SWITCH UI (Quan trọng nhất) */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 42px;
+            height: 22px;
+        }
+
+        .switch input { 
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider-switch {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #2a2a2a; /* Màu khi tắt */
+            border-radius: 34px;
+            transition: .3s;
+        }
+
+        .slider-switch:before {
+            position: absolute;
+            content: "";
+            height: 16px; width: 16px;
+            left: 3px; bottom: 3px;
+            background-color: white;
+            border-radius: 50%;
+            transition: .3s;
+        }
+
+        /* Khi được bật (Tích) */
+        input:checked + .slider-switch {
+            background-color: var(--cyan-neon);
+        }
+
+        input:checked + .slider-switch:before {
+            transform: translateX(20px);
+        }
+
+        /* SELECTOR AREA (IPHONE LIST) */
+        .select-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 14px;
+        }
+
+        .select-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .select-title { color: var(--cyan-neon); font-weight: bold; }
+
+        /* Custom Dropdown CSS */
+        .iphone-dropdown {
+            width: 100%;
+            padding: 10px;
+            background-color: #1a1a1a;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 0.9em;
+            appearance: none; /* Ẩn mũi tên mặc định trên iOS */
+            -webkit-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="white"/></svg>'); /* Mũi tên tùy chỉnh */
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+
+        /* SLIDER AREA */
+        .slider-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 14px;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .slider-title { color: var(--cyan-neon); font-weight: bold; }
+
+        .range-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 3px;
+            background: #333;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px; height: 16px;
+            background: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="phone-screen">
+
+        <div id="login-screen">
+            <div class="login-box">
+                <div class="logo-circle">M</div>
+                <div class="login-title">MINOR GHOST</div>
+                <div class="login-sub">BYPASS & OPTIMIZE</div>
+                
+                <div class="input-group">
+                    <input type="password" id="key-input" placeholder="Mã bảo mật...">
+                </div>
+                
+                <button class="btn-verify" onclick="checkKey()">XÁC MINH NGAY</button>
+            </div>
+        </div>
+
+        <div id="main-menu">
+            <div class="main-header">MINOR GHOST MOD</div>
+
+            <div class="sys-monitor-card">
+                <div class="sys-header">
+                    <span>SYSTEM MONITOR</span>
+                    <span>[RUNNING]</span>
+                </div>
+                <div class="sys-body">
+                    <p class="sys-info-p"><span class="sys-label">&gt; FPS:</span><span class="sys-value" id="fps-val">63</span></p>
+                    <p class="sys-info-p"><span class="sys-label">&gt; GPU:</span><span class="sys-value">855 MHz</span></p>
+                    <p class="sys-info-p"><span class="sys-label">&gt; EXPIRE:</span><span class="sys-value">24/3/2026</span><span class="sys-status">(Active)</span></p>
+                </div>
+            </div>
+
+            <div class="option-card">
+                <div class="option-left">
+                    <span class="option-icon">🎯</span>
+                    <div class="option-text-group">
+                        <span class="option-title">AIMLOCK VIP</span>
+                        <span class="option-desc">Auto lock target</span>
+                    </div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" checked> <span class="slider-switch"></span>
+                </label>
+            </div>
+
+            <div class="option-card">
+                <div class="option-left">
+                    <span class="option-icon">💀</span>
+                    <div class="option-text-group">
+                        <span class="option-title">HEADLOCK VIP</span>
+                        <span class="option-desc">Priority head</span>
+                    </div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox"> <span class="slider-switch"></span>
+                </label>
+            </div>
+
+            <div class="option-card">
+                <div class="option-left">
+                    <span class="option-icon">🧠</span>
+                    <div class="option-text-group">
+                        <span class="option-title">AIM HEAD</span>
+                        <span class="option-desc">Tracking head</span>
+                    </div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider-switch"></span>
+                </label>
+            </div>
+
+            <div class="option-card">
+                <div class="option-left">
+                    <span class="option-icon">👁️</span>
+                    <div class="option-text-group">
+                        <span class="option-title">FIX RUNG TÂM</span>
+                        <span class="option-desc">Anti-shake crosshair</span>
+                    </div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider-switch"></span>
+                </label>
+            </div>
+
+            <div class="option-card">
+                <div class="option-left">
+                    <span class="option-icon">⚡</span>
+                    <div class="option-text-group">
+                        <span class="option-title">UNLOCK 120 FPS</span>
+                        <span class="option-desc">Extreme smooth</span>
+                    </div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider-switch"></span>
+                </label>
+            </div>
+
+            <div class="select-card">
+                <div class="select-header">
+                    <span class="select-title">CHỌN THIẾT BỊ</span>
+                </div>
+                <select class="iphone-dropdown">
+                    <option value="i6">iPhone 6 / 6S / 6 Plus / 6S Plus</option>
+                    <option value="i7">iPhone 7 / 7 Plus</option>
+                    <option value="i8">iPhone 8 / 8 Plus</option>
+                    <option value="ix">iPhone X / XS / XR / XS Max</option>
+                    <option value="i11">iPhone 11 / 11 Pro / 11 Pro Max</option>
+                    <option value="i12">iPhone 12 / 12 Pro / 12 Pro Max / 12 mini</option>
+                    <option value="i13">iPhone 13 / 13 Pro / 13 Pro Max / 13 mini</option>
+                    <option value="i14">iPhone 14 / 14 Plus / 14 Pro / 14 Pro Max</option>
+                    <option value="i15">iPhone 15 / 15 Plus / 15 Pro / 15 Pro Max</option>
+                    <option value="i16">iPhone 16 / 16 Plus / 16 Pro / 16 Pro Max</option>
+                    <option value="i17" selected>iPhone 17 Pro Max</option> </select>
+            </div>
+
+            <div class="slider-card">
+                <div class="slider-header">
+                    <span class="slider-title">ĐỘ NHẠY (SENSITIVITY)</span>
+                    <span><span id="sens-val">1.0</span>x</span>
+                </div>
+                <input type="range" min="0" max="2" step="0.1" value="1.0" class="range-slider" id="sens-slider">
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // --- CHỨC NĂNG 1: ĐĂNG NHẬP & GHI NHỚ KEY (QUAN TRỌNG) ---
+        const CORRECT_KEY = "MINOR"; // Bạn có thể đổi mã Key ở đây (VD: MINOR123)
+        const localStorageKey = "minorGhost_loggedIn_v1"; // Phiên bản v1
+
+        const loginScreen = document.getElementById('login-screen');
+        const mainMenu = document.getElementById('main-menu');
+        const keyInput = document.getElementById('key-input');
+
+        // Hàm kiểm tra trạng thái đăng nhập khi mở trang
+        function checkLoginStatus() {
+            // Lấy dữ liệu từ localStorage trên trình duyệt điện thoại
+            const storedKey = localStorage.getItem(localStorageKey);
+            
+            if (storedKey === CORRECT_KEY) {
+                // Nếu đã đăng nhập, ẩn màn hình khóa, hiện menu luôn
+                loginScreen.style.display = 'none';
+                mainMenu.style.display = 'flex'; // Hiện menu chính
+                startFpsCounter(); // Bắt đầu nhảy FPS
+            }
+        }
+
+        // Chạy kiểm tra trạng thái khi trang vừa tải xong
+        checkLoginStatus();
+
+        // Hàm xử lý nút "Xác minh ngay"
+        function checkKey() {
+            const userInput = keyInput.value.trim().toUpperCase(); // Viết hoa toàn bộ key nhập
+
+            if (userInput === CORRECT_KEY) {
+                alert("Xác minh thành công!");
+                
+                // Lệnh quan trọng: Ghi nhớ key này vào trình duyệt, có thể dùng nhiều lần trên nhiều máy
+                localStorage.setItem(localStorageKey, CORRECT_KEY);
+
+                // Chuyển màn hình
+                loginScreen.style.display = 'none';
+                mainMenu.style.display = 'flex';
+                startFpsCounter(); // Bắt đầu nhảy FPS
+            } else {
+                alert("Mã bảo mật không chính xác. Vui lòng thử lại!");
+            }
+        }
+
+        // --- CHỨC NĂNG 2: GIẢ LẬP NHẢY SỐ (SYSTEM STATS) ---
+        const fpsValDisplay = document.getElementById('fps-val');
+
+        function startFpsCounter() {
+            // Nhảy FPS ảo quanh mức 60-120 để trông chân thực
+            setInterval(() => {
+                // toFixed(1) để có 1 chữ số thập phân (63.0)
+                fpsValDisplay.innerText = (Math.random() * (120.9 - 118.5) + 118.5).toFixed(1);
+            }, 800); // 0.8 giây nhảy một lần
+        }
+
+        // --- CHỨC NĂNG 3: SLIDER AREA ---
+        const sensSlider = document.getElementById('sens-slider');
+        const sensValDisplay = document.getElementById('sens-val');
+
+        sensSlider.oninput = function() {
+            sensValDisplay.innerHTML = parseFloat(this.value).toFixed(1); // VD: 1.1x
+        }
+    </script>
+</body>
+</html>index.html
